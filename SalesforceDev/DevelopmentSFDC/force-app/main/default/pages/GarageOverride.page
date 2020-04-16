@@ -1,0 +1,11 @@
+<apex:page standardController="Vehicle__c" extensions="GarageOverrideController" showHeader="true">
+  <script>
+     var vehicalStatus = '{!status}';
+     if(vehicalStatus == 'Active' || vehicalStatus == 'Approved'){
+        alert('You cannot edit Active/Approved Vehicle.');
+        window.location.href ='{!$CurrentPage.parameters.retURL}';
+     }else{
+        window.location.href = '/'+'{!recId}'+'/e?&retURL=/'+'{!recId}'+'&nooverride=1'
+     }
+  </script>
+</apex:page>

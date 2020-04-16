@@ -1,0 +1,18 @@
+<apex:page standardController="Position__c" extensions="PositionNewWithStdAndExt">
+    <apex:form >
+       <apex:pageBlock title="New Position">
+          <apex:pageblockButtons >
+             <apex:commandButton value="Save Position" action="{!CreatePosition}"/>
+             <apex:commandButton value="Cancel" action="{!CancelPosition}"/>
+          </apex:pageblockButtons>
+          <apex:pageBlocksection title="Position Information">
+             <apex:inputfield value="{!Pos.Name}"/>
+             <apex:inputfield value="{!Pos.Location__c}"/>
+             <apex:inputfield value="{!Pos.Min_Pay__c}"/>
+             <apex:inputfield value="{!Pos.Max_Pay__c}"/>
+             <apex:inputfield value="{!Pos.Parent_Position__c}"/>
+             <apex:inputfield value="{!Pos.Skill_Sets__c}"/>
+          </apex:pageBlocksection>
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

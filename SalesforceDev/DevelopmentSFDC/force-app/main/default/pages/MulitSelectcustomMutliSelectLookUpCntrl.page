@@ -1,0 +1,51 @@
+<apex:page standardController="Account" extensions="customMutliSelectLookUpCntrl">
+<style type="text/css">
+.customPopup {
+background-color: white;
+border-style: solid;
+border-width: 2px;
+left: 20%;
+padding: 10px;
+position: absolute;
+z-index: 9999;
+width: 500px;
+top: 20%;
+}
+
+.disabledTextBox {
+background-color: white;
+border: 1px solid;
+color: black;
+cursor: default;
+width: 90px;
+display: table;
+padding: 2px 1px;
+text-align:right;
+}
+
+.closeButton {
+float: right;
+}
+</style>
+<apex:form >
+<apex:pageBlock id="counter">
+<apex:inputtextarea value="{!lookUp}" label="Contact"/>
+<apex:commandButton value="Add" reRender="out" action="{!add}"/>
+<apex:outputPanel id="out">
+<apex:outputPanel styleClass="customPopup" rendered="{!bool}">
+<apex:commandButton value="X" title="Close the popup" action="{!closePopup}" styleClass="closeButton" rerender="out"/>
+<apex:pageBlockTable value="{!show}" var="e" title="show">
+<apex:column >
+<apex:inputCheckbox value="{!e.check}"/>
+<apex:actionSupport event="onclick" action="{!inIt}"/>
+</apex:column>
+<apex:column >
+<apex:commandLink value="{!e.con.Name}"/>
+</apex:column>
+</apex:pageBlockTable>
+</apex:outputPanel>
+</apex:outputPanel>
+<apex:commandButton value="Save" action="{!mySave}"/>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

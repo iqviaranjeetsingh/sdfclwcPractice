@@ -1,0 +1,11 @@
+<apex:page controller="CompoundUIController">
+    <apex:form >
+       <apex:pageBlock >
+          <apex:pageblocktable value="{!AcctDetails}" var="acc">
+            <apex:column value="{!acc.id}"/>
+            <apex:column value="{!acc.Name}"/>
+            <!-- <apex:column value="{!acc.BillingAddress}"/> -->
+          </apex:pageblocktable>
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

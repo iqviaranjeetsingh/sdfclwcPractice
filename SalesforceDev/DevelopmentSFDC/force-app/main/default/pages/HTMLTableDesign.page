@@ -1,0 +1,116 @@
+<apex:page sidebar="false">
+   <apex:form >
+      <apex:pageBlock >
+         <table style="width:100%" border="1"> 
+            <caption><h1>Employee Details</h1></caption>
+            <tr>
+              <th>Id</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Age</th>
+              <th>Technology</th>
+              <th>Salary</th>
+            </tr>
+            <tr>
+              <td>Emp-001</td>
+              <td>Ranjeet</td>
+              <td>Singh</td>
+              <td>29</td>
+              <td>Salesforce</td>
+              <td>XXXXXXXXXX</td>
+            </tr>
+            <tr>
+              <td>Emp-002</td>
+              <td>Randhir</td>
+              <td>Singh</td>
+              <td>24</td>
+              <td>Salesforce</td>
+              <td>XXXXXXXX</td>
+            </tr>
+            <tr>
+              <td>Emp-003</td>
+              <td>Krishna</td>
+              <td>Kumar</td>
+              <td>30</td>
+              <td>Java</td>
+              <td>XXXXXXXX</td>
+            </tr>
+            <tr>
+              <td>Emp-004</td>
+              <td>Kanhaiya</td>
+              <td>Singh</td>
+              <td>27</td>
+              <td>Salesforce</td>
+              <td>XXXXXXXX</td>
+            </tr>
+         </table>
+      <br/> <hr/> <br/>
+      <table border="1" style="width:100%">
+         <caption><h1> Invoice </h1></caption>
+         <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+         </tr>
+         <tr>
+            <td>Paperclips (Box)</td>
+            <td>100</td>
+            <td>1.15</td>
+            <td>115</td>
+         </tr>
+         <tr>
+            <td>Paper (Case)</td>
+            <td>10</td>
+            <td>45.99</td>
+            <td>459.9</td>
+         </tr>
+         <tr>
+            <td>Wastepaper Baskets</td>
+            <td>2</td>
+            <td>17.99</td>
+            <td>35.98</td>
+         </tr>
+         <tr>
+            <td colspan="3">Subtotal</td>
+            <td>35.98</td>
+         </tr>
+         <tr>
+            <td colspan="2">Tax</td>
+            <td>7%</td>
+            <td>42.76</td>
+         </tr>
+         <tr>
+            <td colspan="3">Total</td>
+            <td>653.64</td>
+         </tr>
+      </table>
+      <br/> <hr/><br/>
+      
+      <table border="1" style="width:100%">
+         <caption><h1>Life Expectancy By Current Age</h1></caption>
+         <tr>
+            <td colspan="2">65</td>
+            <td colspan="2">40</td>
+            <td colspan="2">20</td>
+         </tr>
+         <tr>
+            <td>Men</td>
+            <td>Women</td>
+            <td>Men</td>
+            <td>Women</td>
+            <td>Men</td>
+            <td>Women</td>
+         </tr>
+         <tr>
+            <td>82</td>
+            <td>85</td>
+            <td>78</td>
+            <td>82</td>
+            <td>77</td>
+            <td>81</td>
+         </tr>
+      </table>
+      </apex:pageBlock>
+   </apex:form>
+</apex:page>

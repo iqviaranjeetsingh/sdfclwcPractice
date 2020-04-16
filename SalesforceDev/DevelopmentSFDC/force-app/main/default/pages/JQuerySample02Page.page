@@ -1,0 +1,20 @@
+<apex:page >
+   <b> DOM Manipulation using Jquery </b>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script>
+     $(document).ready(function(){
+        alert('test Div Attr: '+$('div').attr('title'));
+        $('div').attr('title',"test title");
+        alert('test Div Attr: '+$('div').attr('title'));
+        var setAttributes = {
+                                'style':'background-color: white; width: 150px; display: block;margin-bottom: 10px;'
+                            };
+        //$('div').attr(setAttributes);
+        //alert('test Div Attr: '+$('div').attr('title'));
+     });
+  </script>
+  
+  <div title="Title1">DIV 1</div>
+  <div title="Title 2">DIV 2</div>
+  <div title="Title 3">DIV 3</div>  
+</apex:page>

@@ -1,0 +1,67 @@
+<apex:page sidebar="false">
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS090, '/assets/styles/salesforce-lightning-design-system-vf.css')}" />
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS090, '/assets/styles/salesforce-lightning-design-system.css')}" />
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS090, '/assets/styles/salesforce-lightning-design-system-scoped.css')}" />
+  <apex:form >
+     <div class="slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click" aria-expanded="false">
+  <button class="slds-button slds-button--neutral slds-picklist__label" aria-haspopup="true" aria-activedescendant="">
+    <span class="slds-truncate">2 Options selected</span>
+  </button>
+  <div class="slds-dropdown slds-dropdown--left">
+    <ul class="dropdown__list slds-dropdown--length-5" role="menu">
+      <li class="slds-dropdown__item slds-is-selected" aria-selected="true">
+        <a href="javascript:void(0);" role="menuitem">
+          
+        </a>
+      </li>
+      <li class="slds-dropdown__item slds-is-selected" aria-selected="true">
+        <a href="javascript:void(0);" role="menuitem">
+          <p class="slds-truncate">
+            Option B</p>
+        </a>
+      </li>
+      <li class="slds-dropdown__item">
+        <a href="javascript:void(0);" role="menuitem">
+          <p class="slds-truncate">
+            Option C</p>
+        </a>
+      </li>
+      <li class="slds-dropdown__item">
+        <a href="javascript:void(0);" role="menuitem">
+          <p class="slds-truncate">
+            Option D</p>
+        </a>
+      </li>
+      <li class="slds-dropdown__item">
+        <a href="javascript:void(0);" role="menuitem">
+          <p class="slds-truncate">
+            Option E</p>
+        </a>
+      </li>
+      <li class="slds-dropdown__item">
+        <a href="javascript:void(0);" role="menuitem">
+          <p class="slds-truncate">
+            Option FGHIJKLMNOPQRSTUVWXYZ</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="slds-pill_container slds-pill_container--bare">
+  <span class="slds-pill">
+    <span class="slds-pill__label" title="Option A">Pill Label</span>
+    <button class="slds-button slds-button--icon slds-pill__remove">
+      
+      <span class="slds-assistive-text">Remove</span>
+    </button>
+  </span>
+  <span class="slds-pill">
+    <span class="slds-pill__label" title="Option B">Pill Label</span>
+    <button class="slds-button slds-button--icon slds-pill__remove">
+      
+      <span class="slds-assistive-text">Remove</span>
+    </button>
+  </span>
+</div>
+  </apex:form>
+</apex:page>

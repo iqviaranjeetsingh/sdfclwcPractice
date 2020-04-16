@@ -1,0 +1,13 @@
+<apex:page standardController="Position__c" extensions="PositionDetails">
+  <apex:form >
+     <apex:pageBlock title="Position Information">
+        <apex:pageblocktable value="{!pos}" var="p">
+           <apex:column value="{!p.id}"/>
+           <apex:column value="{!p.Name}"/>
+           <apex:column value="{!p.Location__c}" rendered="true"/>
+           <apex:column value="{!p.Min_Pay__c}"/>
+           <apex:column value="{!p.Max_Pay__c}"/>
+       </apex:pageblocktable>
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>

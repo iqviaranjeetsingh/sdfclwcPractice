@@ -1,0 +1,134 @@
+<apex:page >
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+   $(document).ready(function(){
+      $("p").click(function(){
+         alert($(this).html());
+         $(this).hide();
+      });
+ 
+     $('#div1').click(function(){
+       alert($(this).html());
+       $(this).css('background-color','blue');
+     });
+     
+     $('#btnSubmit').click(function(){
+        var result = $('input[Type="radio"]:checked');
+        if(result.length > 0){
+           $('#divResult').html('You Selected: '+result.val());
+        }else{
+           $('#divResult').html('Please Select the Gender.');
+        }
+     });
+     
+     $('#btnclear').click(function(){
+        window.location.reload();
+        //$('#divResult').html();
+     });
+     
+     $('input[name="Skills"]').click(function(){
+        getCheckedValue('Skills');
+     });
+     
+     $('input[name="City"]').click(function(){
+        getCheckedValue('City');
+     });
+     
+     var getCheckedValue = function(groupName){
+     
+       var result = $('input[name="'+groupName+'"]:checked');
+        if(result.length > 0){
+           var strResult = '<b>'+result.length + 'Checkbox Checked:</b><br/>';
+           result.each(function(){
+              strResult += $(this).val() +'<br/>';
+           });
+           $('#div'+groupName).html(strResult); 
+        }else{
+          $('#div'+groupName).html('Please Select the '+groupName);        
+        }
+     }
+     
+     $('#conSelect').change(function(){
+        var selectedCon = $('#conSelect option:selected');
+        $('#divCountry').html('<b>Value = </b>'+selectedCon.val() +', <b>Text =</b>'+selectedCon.text());
+     });
+     
+     $("#MultiSelect").change(function(){
+         var rec = $("#MultiSelect option:selected");
+         var result ='';
+         rec.each(function(){
+            result += 'Value = '+$(this).val()+'  Text = '+$(this).text()+'<br/>'
+         });
+         $('#divMulCountry').html(result);
+        
+     });
+      $("li").click(function(){
+         $("li").each(function(index,element){
+            //alert('Index:'+index+' Element:+$(element).text());
+         });
+     });
+   });
+</script>
+<body>
+<a href="https://www.youtube.com/watch?v=a59kOE2Ma1Q&list=PL6n9fhu94yhVDV697uvHpavA3K_eWGQap" target="__blank">Jquery Tutorials </a>
+<p>If you click on me, I will disappear.</p>
+<p>Click me away!</p>
+<p>Click me too!</p>
+
+<div id="div1">
+   Hey Buddy!!! How are you doing?
+</div>
+
+<br/>
+Gender: <input Type="radio" name="gender" value="Male"/> Male
+<input Type="radio" name="gender" value="Female"/>Female<br/><br/>
+<div id="divResult"></div>
+<input id="btnSubmit" Type="button" value="Submit"/> <input id="btnclear" Type="button" value="reset"/>
+<br/><br/><br/>
+<b>Computer Language:</b>
+<input Type="Checkbox" name="Skills" value="C"/>C
+<input Type="Checkbox" name="Skills" value="C++"/>C++
+<input Type="Checkbox" name="Skills" value="Java"/>Java
+<input Type="Checkbox" name="Skills" value=".Net"/>.Net<br/>
+
+<b>Preferred City:</b>
+<input Type="Checkbox" name="City" value="Bangalore"/>Bangalore
+<input Type="Checkbox" name="City" value="Hyderabad"/>Hyderabad
+<input Type="Checkbox" name="City" value="Chennai"/>Chennai
+<input Type="Checkbox" name="City" value="Pune"/>Pune<br/>
+
+<input id="btnSubmitSkills" Type="button" value="Get Skills"/>
+<input id="btnSubmitCity" Type="button" value="get Preferred Cities"/><br/>
+<div id='divSkills'/><br/>
+<div id='divCity'/><br/><br/>
+
+<b>Picklist Value:</b>
+<select id="conSelect">
+   <option value="">--NA--</option> 
+   <option value="USA">United State</option> 
+   <option value="IND">India</option>
+   <option value="UK">United Kingdom</option>
+   <option value="SWZ">Switzerland</option>         
+</select>
+<br/><div id='divCountry'/><br/>
+
+<b>Multi Select Picklist Value:</b>
+<select id="MultiSelect" multiple="multiple" size="3">
+   <option value="">--NA--</option> 
+   <option value="USA">United State</option> 
+   <option value="IND">India</option>
+   <option value="UK">United Kingdom</option>
+   <option value="SWZ">Switzerland</option>         
+</select>
+<br/><div id='divMulCountry'/><br/>
+
+<h2>Unordered List with Disc Bullets</h2>
+
+<ul style="list-style-type:disc">
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ul>  
+
+</body>
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page standardController="Account" extensions="AccountList" recordSetVar="Accounts" >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page: AccountListPage
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

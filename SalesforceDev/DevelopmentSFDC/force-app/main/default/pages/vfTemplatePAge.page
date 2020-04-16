@@ -1,0 +1,14 @@
+<apex:page >
+  <style>
+     #slideDiv{
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+        background-color: #555;
+        color: white;
+        border: solid 1px #666;
+        border-radius: 10px;
+     }
+   </style>
+  <div id="slideDiv"> Click Here to Slide Down </div>
+</apex:page>

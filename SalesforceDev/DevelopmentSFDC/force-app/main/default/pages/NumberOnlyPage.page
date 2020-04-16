@@ -1,0 +1,8 @@
+<apex:page >
+  <apex:form >
+     <apex:pageBlock >
+        <apex:outputLabel >Text field Only accept(0-9 and , and .)</apex:outputLabel> &nbsp;&nbsp;
+        <apex:inputtext onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44 || event.charCode === 46)"/>
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,10 @@
+<apex:page controller="Sample" sidebar="false">
+  <apex:form >
+    <apex:pageBlock >
+        <apex:pageblockTable value="{!StudList}" var="S">
+            <apex:column headerValue="Name" value="{!S.StudentName}"/>
+            <apex:column headerValue="Score(%)" value="{!S.StudentAge}"/>
+        </apex:pageblockTable>
+    </apex:pageBlock>
+  </apex:form>   
+</apex:page>

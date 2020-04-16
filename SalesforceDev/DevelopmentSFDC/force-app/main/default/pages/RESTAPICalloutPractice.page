@@ -1,0 +1,19 @@
+<apex:page sidebar="false" controller="RESTAPICalloutPractice">
+  <apex:form >
+     <apex:sectionHeader title="REST API" subtitle="Callout" help="https://trailhead.salesforce.com/apex_integration_services/apex_integration_rest_callouts"/>
+     <apex:pageblock title="Do Callout using REST API" helpTitle="JSON to Apex" helpURL="https://json2apex.herokuapp.com/">
+        <apex:pageBlockButtons location="top"> 
+           <apex:commandButton value="Get Animals" action="{!StartCalloutUsingREST}"/>
+           <apex:commandButton value="Post Callout" action="{!DoPostCallout}"/>
+        </apex:pageBlockButtons>
+        Response Values: {!responseValues}<br/>
+        
+        <apex:selectList value="{!selectedAnimal}" multiselect="false" size="1">
+           <apex:selectOptions value="{!Animals}"></apex:selectOptions>
+        </apex:selectList>
+        
+        <apex:outputText label="Selected Value:" value="{!selectedAnimal}"></apex:outputText><br/>
+        POST Callout: {!postResponse}
+     </apex:pageblock>
+  </apex:form>
+</apex:page>

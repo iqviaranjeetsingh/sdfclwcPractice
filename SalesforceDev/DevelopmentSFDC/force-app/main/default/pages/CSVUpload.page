@@ -1,0 +1,30 @@
+<apex:page controller="CSVUpload">
+  <apex:form >
+     <apex:pageBlock >
+        <center>
+           <apex:inputFile value="{!uploadedFile}"/> 
+           <apex:commandButton value="Upload File" action="{!UploadFile}"/>
+        </center> <br/><br/>
+        <apex:pageblockTable value="{!AcctDetails}" var="acc" rendered="{!NOT(ISNULL(accountDetails))}">
+           <apex:column headerValue="Account Name">
+              <apex:outputField value="{!acc.Name}"/>
+          </apex:column>
+          <apex:column headerValue="Shipping Street">
+              <apex:outputField value="{!acc.ShippingStreet}"/>
+          </apex:column>
+          <apex:column headerValue="Shipping City">
+              <apex:outputField value="{!acc.ShippingCity}"/>
+          </apex:column>
+          <apex:column headerValue="Shipping State">
+              <apex:outputField value="{!acc.ShippingState}"/>
+          </apex:column>
+          <apex:column headerValue="Shipping Postal Code">
+              <apex:outputField value="{!acc.ShippingPostalCode}"/>
+          </apex:column>
+          <apex:column headerValue="Shipping Country">
+              <apex:outputField value="{!acc.ShippingCountry}"/>
+          </apex:column>
+        </apex:pageblockTable>
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>

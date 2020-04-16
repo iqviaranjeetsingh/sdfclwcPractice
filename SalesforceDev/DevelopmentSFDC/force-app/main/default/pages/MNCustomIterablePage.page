@@ -1,0 +1,12 @@
+<apex:page controller="MNCustomIterable">
+  <apex:form >
+     <apex:pageblock title="Account Details">
+        <apex:pageblockSection >
+           <apex:outputField value="{!AccountRec.id}"/>
+           <apex:outputField value="{!AccountRec.Name}"/>
+        </apex:pageblockSection>
+        <apex:commandButton value="Next>>" action="{!dislayNextAccount}" rendered="{!hasNextAccount}"/>        
+     
+      </apex:pageblock>
+  </apex:form>
+</apex:page>

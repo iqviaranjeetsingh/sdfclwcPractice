@@ -1,0 +1,106 @@
+<apex:page sidebar="false" controller="MarkAttendance">
+<!--All JS Libraries and CSS required for this example-->
+<apex:includeScript value="https://code.jquery.com/jquery-1.11.1.min.js"/>
+<apex:includeScript value="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"/>
+<apex:includeScript value="https://www.datatables.net/release-datatables/extensions/FixedColumns/js/dataTables.fixedColumns.js"/>
+<apex:stylesheet value="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css"/>
+<apex:stylesheet value="https://www.datatables.net/release-datatables/extensions/FixedColumns/css/dataTables.fixedColumns.css"/>
+  
+ <apex:form >
+ 
+    <html>
+<head>
+  <script type="text/javascript">
+ 
+     function SelectResourceJS(){
+        SelectResourceAF(); 
+      }
+        var table;
+        $(document).ready( initializeDataTable());
+          
+        function initializeDataTable(){
+            table = $('#accTable').DataTable( {
+            scrollY:        "300px",
+            scrollX:        true,
+            scrollCollapse: true,
+            paging:         false
+            } );
+            new $.fn.dataTable.FixedColumns( table, {
+                leftColumns: 1
+            } );
+        }
+          
+    </script>
+</head>
+        <body>
+         <apex:outputpanel id="scripts">
+         <script>
+     initializeDataTable();
+    </script>
+         </apex:outputpanel>
+        <apex:actionfunction name="SelectResourceAF" action="{!selectResource}" status="loadStatus" rerender="Table"/>
+ 
+         <apex:outputpanel id="ResourceListPanel" rendered="{!showDropDown}" title="Resource">
+        <apex:outputText value="Resource ">&nbsp;</apex:outputText>
+        <apex:selectList value="{!selectedResource}" multiselect="false" size="1" onchange="SelectResourceJS()">
+        <apex:selectOptions value="{!resourceOptions}" />
+      <!--  <apex:actionSupport event="onchange" reRender="theform" action="{!selectResource}"/> -->
+      </apex:selectList>
+    </apex:outputpanel>
+ 
+        <apex:outputPanel id="Table">
+    <apex:outputPanel id="AttendanceTable" rendered="{!showTable}"  > 
+            <table id="accTable">
+            
+            <thead>
+            <tr>
+              <th>
+              <span>
+              Candidate
+              </span>
+ 
+              </th> 
+              <apex:repeat value="{!sessionList}" var="s" >
+              <th>
+                <span>
+                {!s.name}
+ 
+                <br/>
+                {!s.Name}
+ 
+                <br/>
+                <apex:outputText value="{0,date,MM'/'dd}">
+                 <apex:param value="{!s.createdDate}" /> 
+                </apex:outputText>
+                </span>
+ 
+              </th>
+              </apex:repeat>
+            </tr>
+             
+            </thead>
+            <tbody>
+            <!-- All contact names -->
+                 
+ 
+            
+               
+           
+             </tbody>
+           </table>
+ 
+           <!--<table>
+                   <apex:repeat >
+                   <td style="width:200px;height:30px;"/>
+                   <span style="position:relative;left:20px;top:5px;"/>
+                   </apex:repeat>
+           </table> -->
+        </apex:outputPanel>
+        </apex:outputPanel>
+        </body>
+ 
+    </html>
+</apex:form>
+    
+      
+   </apex:page>

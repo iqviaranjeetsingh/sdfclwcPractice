@@ -1,0 +1,94 @@
+<apex:page sidebar="false" >
+  <script>
+    function TestJSOnVF(){
+       alert('Hey You clicked on button!!!');
+    }
+  </script>
+  
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS090, '/assets/styles/salesforce-lightning-design-system-vf.css')}" />
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS090, '/assets/styles/salesforce-lightning-design-system-scoped.css')}" />
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS090, '/assets/styles/salesforce-lightning-design-system.css')}" />
+  
+  <apex:form >
+    <apex:image id="theImage" value="{!URLFOR($Resource.SLDS090,'/assets/images/avatar1.jpg')}" width="100" height="100"/>&nbsp;
+    <apex:image id="theImage02" value="{!URLFOR($Resource.SLDS090,'/assets/images/avatar2.jpg')}" width="200" height="200"/>
+    <apex:image id="theImage03" value="{!URLFOR($Resource.SLDS090,'/assets/images/spinners/slds_spinner_brand.gif')}" width="200" height="200"/>
+   
+    <apex:image id="theImage04" value="{!$Resource.adidas}" width="200" height="200"/><br/><br/><br/>
+    
+  <div class="slds-button-group" role="group">
+      <button class="slds-button slds-button--neutral"><apex:commandLink onclick="TestJSOnVF()" value="Click Me!" style="color:#606060;"/></button>
+      <button class="slds-button slds-button--neutral">Edit</button>
+      <button class="slds-button slds-button--neutral">Save</button>
+  </div>
+  </apex:form>
+
+  <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+  <thead>
+    <tr class="slds-text-heading--label">
+      <th scope="col" title="Opportunity Name">
+        <div class="slds-truncate">Opportunity Name</div>
+      </th>
+      <th scope="col" title="Account Name">
+        <div class="slds-truncate">Account Name</div>
+      </th>
+      <th scope="col" title="Close Date">
+        <div class="slds-truncate">Close Date</div>
+      </th>
+      <th scope="col" title="Stage">
+        <div class="slds-truncate">Stage</div>
+      </th>
+      <th scope="col" title="Confidence">
+        <div class="slds-truncate">Confidence</div>
+      </th>
+      <th scope="col" title="Amount">
+        <div class="slds-truncate">Amount</div>
+      </th>
+      <th scope="col" title="Contact">
+        <div class="slds-truncate">Contact</div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" data-label="Opportunity Name" title="Cloudhub">
+        <div class="slds-truncate"><a href="javascript:void(0);">Cloudhub</a></div>
+      </th>
+      <td data-label="Account Name" title="Cloudhub">
+        <div class="slds-truncate">Cloudhub</div>
+      </td>
+      <td data-label="Close Date" title="4/14/2015">
+        <div class="slds-truncate">4/14/2015</div>
+      </td>
+      <td data-label="Prospecting" title="Prospecting">
+        <div class="slds-truncate">Prospecting</div>
+      </td>
+      <td data-label="Confidence" title="20%">20%</td>
+      <td data-label="Amount" title="$25k">$25k</td>
+      <td data-label="Contact" title="jrogers@cloudhub.com">
+        <div class="slds-truncate"><a href="javascript:void(0);">jrogers@cloudhub.com</a></div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row" data-label="Opportunity Name" title="Cloudhub + Anypoint Connectors">
+        <div class="slds-truncate"><a href="javascript:void(0);">Cloudhub + Anypoint Connectors</a></div>
+      </th>
+      <td data-label="Account Name" title="Cloudhub">
+        <div class="slds-truncate">Cloudhub</div>
+      </td>
+      <td data-label="Close Date" title="4/14/2015">
+        <div class="slds-truncate">4/14/2015</div>
+      </td>
+      <td data-label="Prospecting" title="Prospecting">
+        <div class="slds-truncate">Prospecting</div>
+      </td>
+      <td data-label="Confidence" title="20%">20%</td>
+      <td data-label="Amount" title="$25k">$25k</td>
+      <td data-label="Contact" title="jrogers@cloudhub.com">
+        <div class="slds-truncate"><a href="javascript:void(0);">jrogers@cloudhub.com</a></div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</apex:page>

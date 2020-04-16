@@ -1,0 +1,17 @@
+<apex:page standardController="Opportunity">
+   <apex:form >
+      <apex:pageBlock >
+         <apex:pagemessages ></apex:pagemessages>
+         <apex:pageblockButtons >
+            <apex:commandButton value="Save Me!" action="{!Save}"/>
+         </apex:pageblockButtons>
+         <apex:pageblocksection >
+            <apex:inputField value="{!Opportunity.Name}"/>
+            <apex:inputField value="{!Opportunity.Amount}"/>
+            <apex:inputField value="{!Opportunity.StageName}"/>
+            <apex:inputField value="{!Opportunity.CloseDate}"/>
+         </apex:pageblocksection>
+      </apex:pageBlock>
+   </apex:form>
+  
+</apex:page>

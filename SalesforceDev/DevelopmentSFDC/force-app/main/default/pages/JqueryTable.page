@@ -1,0 +1,97 @@
+<apex:page showheader="false" standardController="Account" recordsetVar="accounts" >
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+   $j = jQuery.noConflict();
+   $j(document).ready(function() {
+    $j("#phone").dialog({ autoOpen: false, modal: true, position: 'center'  });
+   });
+   
+   function showDialog(name, phone){
+      $j("#phoneNumber").html('Your selected Account\'s Name:'+name+'  Phone #'+phone);
+      $j("#phone").dialog("open");
+      $j('#phone').dialog("option" , "title" , name);
+      $j('#phone').dialog('option', 'position', 'center');
+      return false;
+   }
+</script>
+<style>
+    .accountLink { color: blue; cursor: pointer; cursor: hand; }
+</style>
+</head>    
+  
+<body>
+
+  <apex:dataList value="{!accounts}" var="account" id="theList">
+        <a href="" class="accountLink" onclick="return showDialog('{!account.name}','{!account.Phone}')"><apex:outputText value="{!account.name}"/></a>
+  </apex:dataList>
+  
+  <div id="phone" >
+      <div style="float:left">Phone:</div><div id="phoneNumber"></div>
+  </div>
+  
+</body>
+
+<head>
+  <title>jQuery UI Dialog - Animation</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css"/>
+  <script>
+  $(function() {
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      modal: true,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+ 
+    $( "#opener" ).click(function() {
+      $( "#dialog" ).dialog( "open" );
+    });
+  });
+  </script>
+  
+  <script>
+  $(function() {
+    $("#dialog-confirm").dialog({
+      resizable: true,
+      height:250,
+      modal: true,
+      buttons: {
+        "Delete all items": function() {
+          $( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
+  </script>
+</head>
+<body>
+ 
+<div id="dialog" title="Basic dialog">
+  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
+ 
+<button id="opener">Open Dialog</button>
+ <br/><br/>
+ 
+ <div id="dialog-confirm" title="Empty the recycle bin?">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
+ 
+<p>Sed vel diam id libero <a href="http://example.com">rutrum convallis</a>. Donec aliquet leo vel magna. Phasellus rhoncus faucibus ante. Etiam bibendum, enim faucibus aliquet rhoncus, arcu felis ultricies neque, sit amet auctor elit eros a lectus.</p>
+ 
+ 
+</body>
+</apex:page>

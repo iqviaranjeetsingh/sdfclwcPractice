@@ -1,0 +1,8 @@
+<apex:page >
+ <!-- Comment Line -->
+<apex:form >
+   <b>Thanks for your time! successfully new Position Created.</b><br/> 
+  <b>Follw with This Id:</b>
+   <apex:commandLink action="/{!$CurrentPage.Parameters.id}"> {!$CurrentPage.Parameters.id} </apex:commandLink>
+   </apex:form>
+</apex:page>

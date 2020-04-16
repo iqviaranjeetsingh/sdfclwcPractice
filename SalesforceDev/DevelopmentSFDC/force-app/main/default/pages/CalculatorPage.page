@@ -1,0 +1,10 @@
+<apex:page controller="CalculatorController">
+  <apex:form >
+     <b>Custom Calculator</b><br/>
+      Enter First Number: <apex:inputtext value="{!number_One}"/><br/>
+      Enter Second Number: <apex:inputtext value="{!number_Two}"/><br/><br/>
+      <b>Final Result:&nbsp;</b> {!Result}<br/>
+      <apex:commandButton value="Add Number" action="{!AddNumber}"/>
+      <apex:commandButton value="Substraction" action="{!Minus}"/>
+  </apex:form>
+</apex:page>

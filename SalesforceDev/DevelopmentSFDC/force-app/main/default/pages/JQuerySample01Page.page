@@ -1,0 +1,169 @@
+<apex:page >
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <style>
+     #slideDiv, #divId01, #jsonDiv{
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+        background-color: #555;
+        color: white;
+        border: solid 1px #666;
+        border-radius: 10px;
+     }
+     #divId01{
+            padding: 50px;
+            display: none;
+        }
+   </style>
+   
+   <script>
+      $(document).ready(function(){
+            // This JSON for one Employee, if want to store data for multiple employee then we need to use JSON Array.
+            // JSON Array can store multiple objects.
+            var EmployeeJSON = {
+               "FirstName":"Ranjeet",
+               "LastName":"Singh",
+               "Age":29,
+               "Education":"Post Graduation",
+               "Salary":129000
+            };
+            
+            var result = '';
+            result += 'First Name : '+ EmployeeJSON.FirstName +'<br/>';
+            result += 'Last Name : '+ EmployeeJSON.LastName+'<br/>';            
+            result += 'Age : '+ EmployeeJSON.Age+'<br/>';
+            result += 'Qualification : '+ EmployeeJSON.Education +'<br/>';
+            result += 'Salary : '+ EmployeeJSON.Salary+'<br/>'; 
+            $("#JSONResult").html(result);                                   
+           
+           //JSON Array Examples
+           var EmployeesJSON = [
+                                   {
+                                     "FirstName":"Ranjeet",
+                                     "LastName":"Singh"
+                                   },
+                                   {
+                                     "FirstName":"Santosh",
+                                     "LastName":"Singh"
+                                   },
+                                   {
+                                     "FirstName":"Satish",
+                                     "LastName":"Singh"
+                                   }
+                              ];
+           $("#JSONArrayResult").html("First Index Value's First Name => "+EmployeesJSON[0].FirstName+' Last Name => '+EmployeesJSON[0].LastName+'<br/>'+"3 rd index value's First Name"+EmployeesJSON[2].FirstName);
+           
+           //Nested JSON Array
+           var employeesDetails = {
+                "Emp1" : {
+                   "FirstName" : "Ranjeet Singh",
+                   "State"  : "Bihar"
+                },
+                "Emap2" : {
+                   "FirstName" : "Devender",
+                   "State" : "Telangana"
+                },
+                "Emp3" :{
+                   "FirstName" : "Rohit Pund",
+                   "State" : "Maharastra"
+                }
+           
+           };
+           $('#JSONnestedArrayResult').html('Print 3rd Employee Nested JSON Object Data =>'+employeesDetails.Emp3.FirstName+', State=> ' +employeesDetails.Emp3.State);
+           
+           //Convert JSON Array to String
+           $('#JSONArrayToString').html(JSON.stringify(EmployeesJSON));
+           
+           //Convert JSON String to JSON Array
+           var JSONStr = '[{"FirstName":"Ranjeet","LastName":"Singh"},{"FirstName":"Santosh","LastName":"Singh"},{"FirstName":"Satish","LastName":"Singh"}]';
+           var JSONResult = JSON.parse(JSONStr);
+           $("#JSONStringToArray").html('JSON String => '+JSONStr+'<br/> JSON ARRAY => '+JSONResult);
+           
+           // Iterate through parsed JSON String value
+           var JSONParsedResult = '';
+           $.each(JSONResult, function(i, EmpDetail){
+              JSONParsedResult += '<b>First Name: </b>'+EmpDetail.FirstName+'<br/>'
+              JSONParsedResult += '<b>Last Name: </b>'+EmpDetail.LastName+'<br/><br/><br/>'
+           });
+           $('#JSONStringToArrayResult').html(JSONParsedResult);
+           
+           $("#slideDiv").click(function(){
+              alert('Hey Buddy! You clicked to Start Sliding? Start....');
+              //Method Chaining
+              $("#divId01")
+              .slideDown(5000)
+              .slideUp(5000)
+              .attr("title","JQuery Tutorial Link");
+           });
+           
+           $("#btnStopSliding").click(function(){
+              $("#divId01").stop();
+           });
+           
+           $('#btnJSONRead').click(function(){
+               
+               $.getJSON("http://www.w3schools.com/website/customers_mysql.php", function(result){
+                    alert('test'+result);
+                    $.each(result, function(i, field){
+                        $("#jsonReadDiv").append("<b>Name = </b>"+field.Name+ ',<b>City:</b>'+field.City+',<b>Country:</b>'+field.Country+'<br/>');
+                   });
+               });
+           });
+         
+      });
+   </script>
+   <center><input type="button" value="Stop Slidign" id="btnStopSliding"/></center><br/>
+   <div id="slideDiv"> Click Here to Slide Down </div>
+   <div id="divId01"> Learn JQuery <a href="https://www.youtube.com/watch?v=PH65y5kz2jg&list=PL6n9fhu94yhVDV697uvHpavA3K_eWGQap&index=18" target="__blank"> JQuery Tutorial Link </a> </div>   
+   <br/><br/><br/>
+   <div id="jsonDiv">
+      Read JSON Data <a href="http://www.w3schools.com/website/customers_mysql.php" target="__blank">Click here to see JSON</a>
+   </div>
+   <center><input type="button" value="Parse Json" id="btnJSONRead"/></center>
+   <div id="jsonReadDiv">   </div>
+   
+   <div id="JSONResult">   </div>
+   JSON Array Examples<br/>
+   var EmployeesJSON = [
+                                   {
+                                     "FirstName":"Ranjeet",
+                                     "LastName":"Singh"
+                                   },
+                                   {
+                                     "FirstName":"Santosh",
+                                     "LastName":"Singh"
+                                   },
+                                   {
+                                     "FirstName":"Satish",
+                                     "LastName":"Singh"
+                                   }
+                              ];<br/>
+   <div id="JSONArrayResult">   </div><br/><br/><br/>
+   <b>Nested JSON Array Object:</b>
+           var employeesDetails = {
+                "Emp1" : {
+                   "FirstName" : "Ranjeet Singh",
+                   "State"  : "Bihar"
+                },
+                "Emap2" : {
+                   "FirstName" : "Devender",
+                   "State" : "Telangana"
+                },
+                "Emp3" :{
+                   "FirstName" : "Rohit Pund",
+                   "State" : "Maharastra"
+                }
+           
+           };
+   <div id="JSONnestedArrayResult">   </div><br/>
+   
+   <b>Convert JSON Array to String Using JSON.stringify(JSONArrayVarName)</b>
+      <div id="JSONArrayToString">   </div><br/>
+      
+   <b>Convert JSON String to JSON Array Using JSON.parse(JSON_STRING)</b>
+      <div id="JSONStringToArray">   </div>
+      
+    <b>Read all JSON Array Value: </b>
+      <div id="JSONStringToArrayResult">   </div>
+   
+</apex:page>

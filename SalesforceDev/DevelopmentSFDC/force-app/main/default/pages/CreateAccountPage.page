@@ -1,0 +1,57 @@
+<apex:page controller="AccountNew" sidebar="false">
+   <apex:sectionHeader title="Account Edit" subtitle="New Account"/>
+   <apex:pagemessages ></apex:pagemessages>
+   <apex:form >
+     <apex:pageblock title="Account Edit">
+        <apex:pageblockButtons >
+           <apex:commandButton value="Create Account" action="{!CreateNewAccount}"/>
+           <apex:commandButton value="Reset" action="{!ResetAcct}"/>
+        </apex:pageblockButtons>
+        <apex:pageblocksection title="Account Information" >
+           <apex:pageblocksectionItem >
+               <apex:outputlabel >Account Name</apex:outputlabel>
+               <apex:inputText value="{!acctName}"/>
+           </apex:pageblocksectionItem>
+           
+           <apex:pageblocksectionItem >
+               <apex:outputlabel >Account Number</apex:outputlabel>
+               <apex:inputText value="{!acctNo}"/>
+           </apex:pageblocksectionItem>
+           
+           <apex:pageblocksectionItem >
+               <apex:outputlabel >Type</apex:outputlabel>
+               <apex:inputText value="{!acctType}"/>
+           </apex:pageblocksectionItem>
+           
+           <apex:pageblocksectionItem >
+               <apex:outputlabel >Rating</apex:outputlabel>
+               <apex:inputText value="{!acctRating}"/>
+           </apex:pageblocksectionItem>
+           
+           <apex:pageblocksectionItem >
+               <apex:outputlabel >Phone</apex:outputlabel>
+               <apex:inputText value="{!acctPhone}"/>
+           </apex:pageblocksectionItem>
+           
+           <apex:pageblocksectionItem >
+               <apex:outputlabel >Owner</apex:outputlabel>
+               <apex:inputText value="{!acctOwnere}"/>
+           </apex:pageblocksectionItem>
+           
+           <apex:pageblocksectionItem >
+               <apex:outputlabel >Industry</apex:outputlabel>
+               <apex:inputText value="{!acctIndustry}"/>
+           </apex:pageblocksectionItem>
+           </apex:pageBlockSection>
+
+           <apex:pageblockSection title="Description">
+           
+               <apex:pageblocksectionItem >
+                   <apex:outputlabel >Description</apex:outputlabel>
+                   <apex:inputTextArea value="{!acctDescription}"  cols="50" rows="8" />
+               </apex:pageblocksectionItem>
+          </apex:pageblocksection>
+     
+     </apex:pageblock>
+   </apex:form>
+</apex:page>

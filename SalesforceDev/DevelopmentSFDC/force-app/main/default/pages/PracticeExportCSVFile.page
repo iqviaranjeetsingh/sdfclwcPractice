@@ -1,0 +1,17 @@
+<apex:page controller="PracticeExportCSVFileController">
+  <apex:form >
+     <apex:pageBlock title="Attach File">
+        <apex:inputFile value="{!pracAttachFile}"></apex:inputFile>
+        <apex:CommandButton value="Parse File..." action="{!ParseCSVFile}"/>
+        {!acct}  {!lstStr}
+        
+        <apex:PageblockTable value="{!acct}" var="a">
+           <apex:column value="{!a.Name}"/>
+           <apex:column value="{!a.Phone}"/>
+           <apex:column value="{!a.Description}"/>
+        
+        </apex:PageblockTable>
+        <apex:commandButton value="Save" action="{!InsertAccount}"/>
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>

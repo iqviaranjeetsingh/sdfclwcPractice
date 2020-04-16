@@ -1,0 +1,21 @@
+<apex:page controller="ComparableInterfaceSortController" >
+   <apex:form id="reffrm">
+    <apex:pageBlock title="Sort Record By Column">
+       <center>
+           Sort By: &nbsp;
+           <apex:selectList value="{!sortByString}" size="1">
+                <apex:actionSupport event="onchange" action="{!strartSorting}" reRender="reffrm"/>
+                <apex:selectOption itemValue="id" itemLabel="id"/>
+                <apex:selectOption itemValue="name" itemLabel="name"/>
+                <apex:selectOption itemValue="order" itemLabel="order"/>
+            </apex:selectList>
+       </center>
+        <br/>
+       <apex:pageBlockTable value="{!AccountWrappervar}" var="acct">
+           <apex:column headerValue="ACCOUNT ID" value="{!acct.id}"/>
+           <apex:column headerValue="In Order" value="{!acct.order}"/>
+           <apex:column headerValue="Account Name" value="{!acct.acctName}"/>
+       </apex:pageBlockTable>
+   </apex:pageBlock>
+       </apex:form>
+</apex:page>

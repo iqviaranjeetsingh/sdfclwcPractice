@@ -1,0 +1,161 @@
+<!-- 
+  * @author Original: Ranjeet Kumar Singh, Last Modified: Ranjeet Kumar Singh 
+  * @date Original: 17 Feb 2016, Last Modified: 20 FEB 2016
+  * @description: This visualforce page is used to Design UI for Excel Communications (XLC) Company to provide flexibility to Customer 
+                  to see the installed Recording Device and current/future Broadcast. In addition to this functionalities
+                  Customer Can:
+                  - See all available recording devices in Drop-down field.
+                  - Subscribe the available Channels if any Broadcast is available for current/future hours, if not subscribed available channel.
+                  - Record the broadcast which Start Date Time is greater than current Date Time.
+                  - Record All, record the selected Broadcast plus future broadcasts that available for next 48 hours.
+                  - Cancel the Recording Broadcast that already scheduled for recording.
+                  - see Broadcasts for each channel that available from Current Date Time to Up to 48 hours.
+                  - see 'No Data' if Broadcast is not available for Channels for Current/Future Date Time.
+                  - see broadcast in tabular format, with Channel Name and Broadcast start from Current Date and hour(Eg: User can see the table header Date time in this format(Thu, Feb 18 07:00 AM)).
+                  - Go to next Page and previous/Current page to see the available broadcasts for Channel onclick of <Previous   |  Next > Link. 
+                  
+-->
+<apex:page Controller="XLCInteractiveGuideController" sidebar="false">
+   <apex:sectionHeader title="Interactive Guide"/>
+   <apex:form >
+      <apex:PageMessages />
+      <!-- This Pageblock component display the proper message, if Record Device is not available for Current Logged-in User -->
+      <apex:pageBlock rendered="{!RecordingDeviceType.size == 0}">
+         <apex:pageMessage severity="Info" summary="{!$Label.Recording_Device_Not_Found_MSG}" strength="3"></apex:pageMessage>
+      </apex:pageBlock>
+      <!-- This Pageblock component display the Recording Device picklist value and Related Broadcast records that accessible for Current Logged-in User -->
+      <apex:pageblock rendered="{!RecordingDeviceType.size > 0}" id="pbId">
+         <!-- This panelGrid component display two columns, in first column show the Record Device Name and Other Columns is used to display the selected broadcast details
+              or Scheduled recording device details 
+         -->
+         <apex:panelGrid columns="2" id="theGrid">
+         <apex:panelGroup id="RDId">
+         <apex:pageBlocksection >
+             <apex:pageblocksectionitem >
+                 <apex:outputLabel for="recordingDeviceTypeId" value="Recording Device:"></apex:outputLabel>
+                 <apex:selectlist id="recordingDeviceTypeId" value="{!selectedRecordingDevice}" size="1">
+                    <apex:selectoptions value="{!RecordingDeviceType}"/>
+                    <apex:actionSupport event="onchange" action="{!UpdateDataOnChangeRecordingDevice}"/>
+                 </apex:selectlist>
+             </apex:pageblocksectionitem>
+         </apex:pageBlocksection>
+        </apex:panelGroup>
+        <apex:panelGroup id="BraodCastDetails">
+           <apex:pageBlock title="Broadcast Details" id="ScheduledRecDetailid" rendered="{!isRecordingScheduled}">
+             <apex:pageblockSection columns="1">
+                <apex:outPutText label="Broadcast Name" value="{!scheduledBraodCastName}"></apex:outPutText>
+                <apex:outPutText label="Description" value="{!scheduledBraodCastDesc}"> </apex:outPutText>
+                <apex:outPutText rendered="{!scheduledRecord.Conflict_Warning__c}"><b>Note:</b>This recording has resulted in a conflict and cannot be recorded.</apex:outPutText>
+             </apex:pageblockSection>
+             <apex:pageblockbuttons location="bottom">
+                <apex:commandButton value="Cancel Recording" action="{!CancelRecording}"/>
+             </apex:pageblockbuttons>
+           </apex:pageBlock>
+           
+           <apex:pageBlock title="Broadcast Details" id="boradCastDetailid" rendered="{!isBoradCastSelected}">
+             <apex:pageblockSection columns="1">
+                <apex:outputField value="{!selectedBroadCastDetails.Name}"/>
+                <apex:outputField value="{!selectedBroadCastDetails.Description__c}"/>
+             </apex:pageblockSection>
+             <apex:pageblockbuttons location="bottom">
+                <apex:commandButton value="Subscribe Now!" action="{!SubscribeChannel}" rendered="{!!isChannelSubscribed}"/>
+                <apex:commandButton value="Record" rendered="{!isChannelRecord && isChannelSubscribed}" action="{!ScheduleRecordingRecord}"/>
+                <apex:commandButton value="Record All" rendered="{!isChannelRecordAll && isChannelSubscribed}" action="{!ScheduleRecordingRecordAll}"/>
+             </apex:pageblockbuttons>
+           </apex:pageBlock>
+           
+        </apex:panelGroup>
+      </apex:panelGrid>
+            <!-- below outputLabel/commandLink rendered based on the condition. If user is on first page then User can see links to go to Next> page but cannot see link to go 
+                 to Previous page. Once user click on the Next> link automatically <Previous link will be enabled.
+            -->
+            <apex:outputLabel rendered="{!pageNumber == 1}"> &lt; Previous </apex:outputLabel>
+            <apex:commandLink action="{!GoToPreviousPage}" value="<Previous" id="previousLnkId" rendered="{!pageNumber > 1}" rerender="pbId"/>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <apex:outputLabel rendered="{!pageNumber == 8}">Next &gt;</apex:outputLabel>
+            <apex:commandLink action="{!GoToNextPage}" value="Next>" id="nextLnkId" rendered="{!pageNumber < 8}" rerender="pbId"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Page#: {!pageNumber}
+         <apex:variable var="i" value="{!0}"/>
+         <apex:pageBlocksection >
+            <!-- PageBlockTable Visualforce Component used to display broadcast details in tabular format. It Iterate over the Channel and List of Wrapper class that holds
+                Channel Name, Broadcast, boolean Conflict flag.
+                 User can see:
+                 - Broadcast name as link
+                 - if there is no broadcast name, User can see NO Data
+                 - X or O sign after Broadcast Name, if Conflict Checked is true then Display X, or if Conflict Check box is false then display O
+            -->
+            <apex:PageblockTable value="{!channelAndBoradcastdetails}" var="channel" id="pbTableid" width="100%">
+               <apex:column headerValue="Channel" value="{!channel}"/> 
+               
+               <apex:column headerValue="{!showStartDateTime01}">
+                   <apex:commandLink action="{!DisplayBroadCastDetails}">
+                       {!channelAndBoradcastdetails[channel][i].broadcastRec.Name}
+                       <apex:param name="selectedBoradCastId" value="{!channelAndBoradcastdetails[channel][i].broadcastRec.id}" assignTo="{!selectedBoradCastId}"/>
+                    </apex:commandLink>&nbsp;&nbsp;
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && channelAndBoradcastdetails[channel][i].isRecordingConflict}">X</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && !channelAndBoradcastdetails[channel][i].isRecordingConflict}">O</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].noDataMessage != null}">{!channelAndBoradcastdetails[channel][i].noDataMessage}</apex:outputText> 
+              </apex:column>
+               
+               <apex:column headerValue="{!showStartDateTime02}">
+                 <apex:variable var="i" value="{!i+1}"/>
+                 <apex:commandLink action="{!DisplayBroadCastDetails}">
+                       {!channelAndBoradcastdetails[channel][i].broadcastRec.Name}
+                       <apex:param name="selectedBoradCastId" value="{!channelAndBoradcastdetails[channel][i].broadcastRec.id}" assignTo="{!selectedBoradCastId}"/>
+                    </apex:commandLink>&nbsp;&nbsp;
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && channelAndBoradcastdetails[channel][i].isRecordingConflict}">X</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && !channelAndBoradcastdetails[channel][i].isRecordingConflict}">O</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].noDataMessage != null}">{!channelAndBoradcastdetails[channel][i].noDataMessage}</apex:outputText> 
+               </apex:column>
+               
+               <apex:column headerValue="{!showStartDateTime03}">
+                 <apex:variable var="i" value="{!i+1}"/>
+                 <apex:commandLink action="{!DisplayBroadCastDetails}">
+                       {!channelAndBoradcastdetails[channel][i].broadcastRec.Name}
+                       <apex:param name="selectedBoradCastId" value="{!channelAndBoradcastdetails[channel][i].broadcastRec.id}" assignTo="{!selectedBoradCastId}"/>
+                    </apex:commandLink>&nbsp;&nbsp;
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && channelAndBoradcastdetails[channel][i].isRecordingConflict}">X</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && !channelAndBoradcastdetails[channel][i].isRecordingConflict}">O</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].noDataMessage != null}">{!channelAndBoradcastdetails[channel][i].noDataMessage}</apex:outputText> 
+               </apex:column>
+               
+               <apex:column headerValue="{!showStartDateTime04}">
+                  <apex:variable var="i" value="{!i+1}"/>
+                  <apex:commandLink action="{!DisplayBroadCastDetails}">
+                       {!channelAndBoradcastdetails[channel][i].broadcastRec.Name}
+                       <apex:param name="selectedBoradCastId" value="{!channelAndBoradcastdetails[channel][i].broadcastRec.id}" assignTo="{!selectedBoradCastId}"/>
+                    </apex:commandLink>&nbsp;&nbsp;
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && channelAndBoradcastdetails[channel][i].isRecordingConflict}">X</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && !channelAndBoradcastdetails[channel][i].isRecordingConflict}">O</apex:outputText> 
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].noDataMessage != null}">{!channelAndBoradcastdetails[channel][i].noDataMessage}</apex:outputText> 
+               </apex:column>
+               
+                 
+               <apex:column headerValue="{!showStartDateTime05}">
+                  <apex:variable var="i" value="{!i+1}"/>
+                  <apex:commandLink action="{!DisplayBroadCastDetails}">
+                       {!channelAndBoradcastdetails[channel][i].broadcastRec.Name}
+                       <apex:param name="selectedBoradCastId" value="{!channelAndBoradcastdetails[channel][i].broadcastRec.id}" assignTo="{!selectedBoradCastId}"/>
+                    </apex:commandLink>&nbsp;&nbsp;
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && channelAndBoradcastdetails[channel][i].isRecordingConflict}">X</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && !channelAndBoradcastdetails[channel][i].isRecordingConflict}">O</apex:outputText> 
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].noDataMessage != null}">{!channelAndBoradcastdetails[channel][i].noDataMessage}</apex:outputText> 
+               </apex:column>
+               
+               <apex:column headerValue="{!showStartDateTime06}">
+                   <apex:variable var="i" value="{!i+1}"/>
+                   <apex:commandLink action="{!DisplayBroadCastDetails}">
+                       {!channelAndBoradcastdetails[channel][i].broadcastRec.Name}
+                       <apex:param name="selectedBoradCastId" value="{!channelAndBoradcastdetails[channel][i].broadcastRec.id}" assignTo="{!selectedBoradCastId}"/>
+                    </apex:commandLink>&nbsp;&nbsp;
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && channelAndBoradcastdetails[channel][i].isRecordingConflict}">X</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].isRecordingConflict != null && !channelAndBoradcastdetails[channel][i].isRecordingConflict}">O</apex:outputText>
+                    <apex:outputText rendered="{!channelAndBoradcastdetails[channel][i].noDataMessage != null}">{!channelAndBoradcastdetails[channel][i].noDataMessage}</apex:outputText> 
+                  <apex:variable var="i" value="{!0}"/>
+               </apex:column>
+               
+            </apex:PageblockTable>
+         </apex:pageBlocksection>
+      </apex:pageblock>
+   </apex:form>
+</apex:page>

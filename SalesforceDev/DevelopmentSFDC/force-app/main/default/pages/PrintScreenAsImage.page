@@ -1,0 +1,114 @@
+<apex:page standardStylesheets="false" sidebar="false" >
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <apex:includeScript value="{!$Resource.html2canvas}"/>
+  
+  <script>
+     j$ = jQuery.noConflict();
+     function downloadAsImage(region,product,indication,tableId) {
+          //alert('Execution Started');
+          html2canvas(j$('[id$="' + tableId + '"]'), {
+            
+            onrendered: function (canvas) {
+              //alert('Execution Started:: Chrome1');
+              var fileName = region + '-' + product + '-' + indication + '.png';
+              var isIE =  detectIE();
+              if (isIE && isIE > 9) {
+                var blob = canvas.msToBlob();
+                navigator.msSaveBlob(blob, fileName);
+              } 
+              else if (!isIE){
+                //alert('Execution Started:: Chrome');
+                var a = document.createElement('a');
+                a.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                a.download = fileName;
+                a.click();
+              }
+            }
+          });
+        }
+        
+        function downloadAsImage01(region,product,indication,tableId) {
+          //alert('Execution Started');
+          html2canvas(j$('[id$="' + tableId + '"]'), {
+            
+            onrendered: function (canvas) {
+              //alert('Execution Started:: Chrome1');
+              var fileName = region + '-' + product + '-' + indication + '.png';
+              var isIE =  detectIE();
+              if (isIE && isIE > 9) {
+                var blob = canvas.msToBlob();
+                navigator.msSaveBlob(blob, fileName);
+              } 
+              else if (!isIE){
+                //alert('Execution Started:: Chrome');
+                var a = document.createElement('a');
+                a.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                a.download = fileName;
+                a.click();
+              }
+            }
+          });
+        }
+        
+        function detectIE() {
+          var ua = window.navigator.userAgent;
+    
+          var msie = ua.indexOf('MSIE ');
+          if (msie > 0) {
+            // IE 10 or older => return version number
+            return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+          }
+    
+          var trident = ua.indexOf('Trident/');
+          if (trident > 0) {
+            // IE 11 => return version number
+            var rv = ua.indexOf('rv:');
+            return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+          }
+    
+          var edge = ua.indexOf('Edge/');
+          if (edge > 0) {
+            // Edge (IE 12+) => return version number
+            return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+          }
+    
+          // other browser
+          return false;
+       }
+  </script>
+  <apex:form >
+     <apex:pageBlock id="id_scorecard_matrix">
+        <!-- Begin Default Content REMOVE THIS -->
+          <h1>Congratulations</h1>
+          This is your new Page
+          <div>
+            <apex:image id="theImage" value="{!$Resource.adidas}" width="200" height="200"/>
+            <p style="color:red">
+            <b>NEW DELHI:</b>  Congress vice president Rahul Gandhi today attacked Prime Minister Narendra Modi, 
+            pitching for a united opposition to take on the BJP, at a meeting hosted by Sharad Yadav, who is recently estranged 
+            from Bihar Chief Minister and Janata Dal (United) boss Nitish Kumar over his alliance with the BJP. 
+            Modi-ji says he wants to create a Swachh Bharat but we want Sach (Truthful) Bharat. Wherever he goes he lies, 
+            Mr Gandhi told the gathering of opposition leaders, adding, if we come together, they will be nowhere to be seen.
+            He drew a quick response from union minister Ravi Shankar Prasad, who said, This is an alliance of all the scared people. 
+            They are scared of Modi and the BJP. Todays meet was a meeting of all the losing parties
+            Sharad Yadav had invited opposition leaders for what he called a Sanjhi Virasat Bachao 
+            (save the countrys composite culture) meet, his rebellion against the BJP which his party chief Nitish Kumar, 
+            has now joined hands with in Bihar. Mr Yadavs disapproval of Mr Kumars decision to dump Lalu Yadav and the Congress 
+            as allies and partner with the BJP has brought them at breakpoint. </p>
+          </div>
+        <!-- End Default Content REMOVE THIS -->
+        <apex:pageBlockButtons location="top" >
+           <apex:commandButton value="Export To Image" id="export_to_image" onclick="downloadAsImage('Asia','Crocin','Fiver','id_scorecard_matrix');"/>
+        </apex:pageBlockButtons>
+     </apex:pageBlock>
+     <apex:pageBlock id="text_ScoreCard">
+         <apex:pageBlockButtons location="bottom">
+               <apex:commandButton value="Export To Image" id="export_to_image" onclick="downloadAsImage01('Asia','Crocin','Fiver','text_ScoreCard');"/>
+         </apex:pageBlockButtons>
+        <div>
+         <apex:image id="theImage" value="{!$Resource.adidas}" width="200" height="200"/>
+          <p>After many attempts over the months, merger moves were seen to receive a booster shot when Mr Palaniswami or "EPS", and OPS, came to Delhi for the oath ceremony of Venkaiah Naidu as the country's Vice-President and met Prime Minister Narendra Modi, separately. The BJP is believed to be invested in a reunited AIADMK, which has in the past supported it on key policies and legislation and is seen as friendly to the centre.</p>
+        </div>
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>
